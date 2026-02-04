@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mohammed Elshwehy | Senior Mobile Developer | PMP® • PMI-ACP®</title>
+    <meta name="description" content="Senior Mobile Developer (Flutter • Android • iOS) with 11+ years experience. Pixel-perfect UI from Figma, clean architecture, and production-grade delivery. PMP® certified. Available for full-time, part-time, and contract work.">
+    <meta name="keywords" content="Flutter Developer, Senior Mobile Developer, Figma to Flutter, Android Kotlin, iOS Swift, Clean Architecture, BLoC, Firebase, Kuwait, PMP">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+
+        :root {
+            --bg-primary: #070B14;         /* deep navy */
+            --bg-secondary: #0B1220;       /* slightly lighter navy */
+            --bg-card: rgba(255,255,255,0.035);
+            --glass: rgba(255,255,255,0.05);
+
+            --accent-cyan: #1FB6A6;        /* teal */
+            --accent-purple: #6D7BD1;      /* muted indigo */
+            --accent-green: #2FBF71;       /* calm green */
+            --accent-orange: #C9A227;      /* subtle gold */
+            --accent-red: #E45B5B;         /* muted red */
+            --accent-pink: #C06C84;        /* muted rose */
+            --accent-blue: #4F86C6;        /* professional blue */
+            --accent-lime: #94C973;        /* muted lime */
+
+            --text-primary: #F8FAFC;
+            --text-secondary: #CBD5E1;
+            --text-muted: #94A3B8;
+
+            --border-color: rgba(148, 163, 184, 0.16);
+
+            --gradient-1: linear-gradient(135deg, #1FB6A6 0%, #4F86C6 55%, #6D7BD1 100%);
+            --gradient-2: linear-gradient(135deg, rgba(31,182,166,0.18), rgba(79,134,198,0.14), rgba(109,123,209,0.12));
+            --gradient-3: linear-gradient(135deg, rgba(201,162,39,0.12), rgba(31,182,166,0.10), rgba(79,134,198,0.10));
+        }
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Outfit', sans-serif; background: var(--bg-primary); color: var(--text-primary); line-height: 1.6; overflow-x: hidden; }
+        .bg-grid { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-image: linear-gradient(rgba(45, 212, 191, 0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(45, 212, 191, 0.035) 1px, transparent 1px); background-size: 60px 60px; z-index: -2; }
+        .bg-glow { position: fixed; width: 600px; height: 600px; border-radius: 50%; filter: blur(150px); opacity: 0.15; z-index: -1; animation: softGlow 18s ease-in-out infinite; }
+        .bg-glow-1 { background: var(--accent-cyan); top: -200px; right: -200px; }
+        .bg-glow-2 { background: var(--accent-purple); bottom: -200px; left: -200px; animation-delay: -10s; }
+        @keyframes float { 0%, 100% { transform: translate(0, 0) scale(1); } 50% { transform: translate(50px, 50px) scale(1.1); } }
+        @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(1.2); } }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes cardFloat { 0%, 100% { transform: translateY(0px) rotate(0deg); } 50% { transform: translateY(-20px) rotate(2deg); } }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        @keyframes shimmer {
+            0% { transform: translateX(-120%); opacity: 0; }
+            20% { opacity: 0.6; }
+            100% { transform: translateX(220%); opacity: 0; }
+        }
+        @keyframes softGlow {
+            0%, 100% { opacity: 0.14; transform: translate(0,0) scale(1); }
+            50% { opacity: 0.22; transform: translate(30px, 20px) scale(1.08); }
+        }
+
+        nav { position: fixed; top: 0; left: 0; right: 0; padding: 1.5rem 4rem; display: flex; justify-content: space-between; align-items: center; z-index: 1000; backdrop-filter: blur(20px); background: rgba(10, 10, 15, 0.8); border-bottom: 1px solid var(--border-color); }
+        .logo { font-size: 1.5rem; font-weight: 700; background: var(--gradient-1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+        .nav-links a { color: var(--text-secondary); text-decoration: none; font-weight: 500; font-size: 0.95rem; transition: all 0.3s ease; position: relative; }
+        .nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px; background: var(--gradient-1); transition: width 0.3s ease; }
+        .nav-links a:hover { color: var(--text-primary); }
+        .nav-links a:hover::after { width: 100%; }
+        .hero { min-height: 100vh; display: flex; align-items: center; padding: 8rem 4rem 4rem; position: relative; }
+        .hero-content { max-width: 800px; }
+        .hero-badge { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background: rgba(0, 212, 255, 0.1); border: 1px solid rgba(0, 212, 255, 0.3); border-radius: 100px; font-size: 0.85rem; color: var(--accent-cyan); margin-bottom: 1.5rem; animation: fadeInUp 0.8s ease forwards; }
+        .hero-badge .dot { width: 8px; height: 8px; background: var(--accent-green); border-radius: 50%; animation: pulse 2s infinite; }
+        .hero h1 { font-size: 4rem; font-weight: 800; line-height: 1.1; margin-bottom: 1rem; animation: fadeInUp 0.8s ease 0.1s forwards; opacity: 0; }
+        .hero h1 .gradient-text { background: var(--gradient-1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .hero-subtitle { font-size: 1.5rem; color: var(--accent-purple); margin-bottom: 1.5rem; font-weight: 500; animation: fadeInUp 0.8s ease 0.15s forwards; opacity: 0; }
+        .hero p { font-size: 1.15rem; color: var(--text-secondary); margin-bottom: 2rem; max-width: 650px; animation: fadeInUp 0.8s ease 0.2s forwards; opacity: 0; }
+        .hero-contact-info { display: flex; flex-wrap: wrap; gap: 1.5rem; margin-bottom: 2.5rem; animation: fadeInUp 0.8s ease 0.25s forwards; opacity: 0; }
+        .contact-item { display: flex; align-items: center; gap: 0.5rem; color: var(--text-secondary); font-size: 0.95rem; }
+        .contact-item i { color: var(--accent-cyan); width: 20px; }
+        .contact-item a { color: var(--text-secondary); text-decoration: none; transition: color 0.3s ease; }
+        .contact-item a:hover { color: var(--accent-cyan); }
+        .hero-buttons { display: flex; gap: 1rem; animation: fadeInUp 0.8s ease 0.3s forwards; opacity: 0; }
+        .btn { padding: 1rem 2rem; border-radius: 12px; font-weight: 600; font-size: 1rem; text-decoration: none; transition: all 0.3s ease; cursor: pointer; border: none; display: inline-flex; align-items: center; gap: 0.5rem; }
+        .btn-primary { 
+            background: var(--gradient-1); 
+            background-size: 200% 200%;
+            animation: gradientShift 11s ease infinite;
+            color: var(--bg-primary); 
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 14px 48px rgba(45, 212, 191, 0.22); }
+        .btn-primary::after{
+            content:'';
+            position:absolute;
+            inset:-40% -60%;
+            background: linear-gradient(90deg, transparent, rgba(248,250,252,0.24), transparent);
+            transform: translateX(-120%);
+            animation: shimmer 9.5s ease-in-out infinite;
+            pointer-events:none;
+        }
+        .btn-secondary { background: transparent; color: var(--text-primary); border: 1px solid var(--border-color); }
+        .btn-secondary:hover { border-color: var(--accent-cyan); background: rgba(0, 212, 255, 0.05); }
+        .hero-visual { position: absolute; right: 4rem; top: 50%; transform: translateY(-50%); width: 500px; height: 500px; }
+        .hero-card { position: absolute; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 1.5rem; backdrop-filter: blur(16px); animation: cardFloat 6s ease-in-out infinite; }
+        .hero-card-1 { top: 15%; right: 10%; }
+        .hero-card-2 { bottom: 25%; left: 5%; animation-delay: -2s; }
+        .hero-card-3 { top: 55%; right: 25%; animation-delay: -4s; }
+        .stat-card { display: flex; align-items: center; gap: 1rem; }
+        .stat-icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; }
+        .stat-icon.cyan { background: rgba(0, 212, 255, 0.15); color: var(--accent-cyan); }
+        .stat-icon.purple { background: rgba(139, 92, 246, 0.15); color: var(--accent-purple); }
+        .stat-icon.green { background: rgba(16, 185, 129, 0.15); color: var(--accent-green); }
+        .stat-info h4 { font-size: 1.5rem; font-weight: 700; }
+        .stat-info p { font-size: 0.85rem; color: var(--text-muted); }
+        section { padding: 6rem 4rem; }
+        .section-header { text-align: center; margin-bottom: 4rem; }
+        .section-label { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: var(--accent-cyan); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 1rem; }
+        .section-title { font-size: 3rem; font-weight: 700; }
+        .skills { background: var(--bg-secondary); }
+        .skills-container { max-width: 1200px; margin: 0 auto; }
+        .skills-category { margin-bottom: 3rem; }
+        .skills-category h3 { font-size: 1.2rem; color: var(--text-muted); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.75rem; }
+        .skills-category h3 i { color: var(--accent-cyan); }
+        .skills-category h3::before { content: ''; width: 24px; height: 2px; background: var(--gradient-1); }
+        .skills-list { display: flex; flex-wrap: wrap; gap: 1rem; }
+        .skill-item { padding: 1rem 1.5rem; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; display: flex; align-items: center; gap: 0.75rem; transition: all 0.3s ease; }
+        .skill-item:hover { border-color: var(--accent-cyan); transform: translateY(-3px);  box-shadow: 0 14px 40px rgba(45, 212, 191, 0.10); }
+        .skill-item.advanced { border-color: rgba(139, 92, 246, 0.5); background: rgba(139, 92, 246, 0.05); }
+        .skill-item i { font-size: 1.3rem; width: 28px; text-align: center; }
+        .skill-item span { font-weight: 500; }
+        .skill-badge { font-size: 0.7rem; padding: 0.2rem 0.5rem; background: var(--accent-purple); color: white; border-radius: 4px; margin-left: 0.5rem; }
+        .experience-timeline { max-width: 1000px; margin: 0 auto; position: relative; }
+        .experience-timeline::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: var(--border-color); }
+        .experience-item { padding-left: 3rem; position: relative; margin-bottom: 3.5rem; }
+        .experience-item::before { content: ''; position: absolute; left: -5px; top: 0; width: 12px; height: 12px; border-radius: 50%; background: var(--gradient-1); }
+        .experience-date { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: var(--accent-cyan); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; }
+        .experience-date i { font-size: 0.8rem; }
+        .experience-item h3 { font-size: 1.4rem; margin-bottom: 0.25rem; display: flex; align-items: center; gap: 0.75rem; }
+        .experience-item h3 i { color: var(--accent-purple); font-size: 1.2rem; }
+        .experience-company { color: var(--accent-purple); margin-bottom: 1rem; font-weight: 500; display: flex; align-items: center; gap: 0.5rem; }
+        .experience-company i { font-size: 0.9rem; }
+        .experience-projects { margin-top: 1rem; }
+        .experience-projects h4 { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem; }
+        .experience-projects h4 i { color: var(--accent-cyan); }
+        .project-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+        .project-tag { padding: 0.4rem 0.8rem; background: rgba(0, 212, 255, 0.1); border: 1px solid rgba(0, 212, 255, 0.2); border-radius: 6px; font-size: 0.8rem; color: var(--accent-cyan); }
+        .experience-highlights { list-style: none; margin-top: 1rem; }
+        .experience-highlights li { color: var(--text-secondary); padding-left: 1.5rem; position: relative; margin-bottom: 0.5rem; }
+        .experience-highlights li::before { content: '\f00c'; font-family: 'Font Awesome 6 Free'; font-weight: 900; position: absolute; left: 0; color: var(--accent-green); font-size: 0.8rem; }
+        .projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; max-width: 1400px; margin: 0 auto; }
+        .project-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 20px; overflow: hidden; transition: all 0.4s ease; }
+        .project-card:hover { transform: translateY(-8px); box-shadow: 0 22px 70px rgba(0, 0, 0, 0.35); border-color: var(--accent-cyan); }
+        .project-image { height: 160px; background: linear-gradient(135deg, var(--bg-secondary), var(--bg-primary)); position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        .project-image::before { content: ''; position: absolute; inset: 0; background: var(--gradient-1); opacity: 0.1; }
+        .project-mockup { font-size: 3.5rem; opacity: 0.9; }
+        .project-content { padding: 1.5rem; }
+        .project-category { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--accent-cyan); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.4rem; }
+        .project-category i { font-size: 0.65rem; }
+        .project-content h3 { font-size: 1.2rem; margin-bottom: 0.5rem; }
+        .project-content p { color: var(--text-secondary); margin-bottom: 1rem; font-size: 0.9rem; }
+        .project-tech { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 1rem; }
+        .tech-tag { padding: 0.25rem 0.6rem; background: rgba(139, 92, 246, 0.1); border: 1px solid rgba(139, 92, 246, 0.3); border-radius: 6px; font-size: 0.7rem; color: var(--accent-purple); }
+        .project-links { display: flex; gap: 0.75rem; }
+        .store-link { display: flex; align-items: center; justify-content: center; gap: 0.4rem; padding: 0.5rem 1rem; background: rgba(255,255,255,0.05); border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-secondary); text-decoration: none; font-size: 0.8rem; transition: all 0.3s ease; }
+        .store-link:hover { border-color: var(--accent-cyan); color: var(--accent-cyan); background: rgba(0, 212, 255, 0.05); }
+        .store-link i { font-size: 1rem; }
+        .store-link.android i { color: #3DDC84; }
+        .store-link.ios i { color: #fff; }
+        .certifications { background: var(--bg-secondary); }
+        .certifications-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; max-width: 1000px; margin: 0 auto; }
+        .cert-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 20px; padding: 2.5rem 2rem; text-align: center; transition: all 0.3s ease; position: relative; overflow: hidden; }
+        .cert-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--gradient-1); }
+        .cert-card:hover { border-color: var(--accent-purple); transform: translateY(-5px);  box-shadow: 0 16px 52px rgba(167, 139, 250, 0.12); }
+        .cert-icon { width: 80px; height: 80px; margin: 0 auto 1.5rem; background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(139, 92, 246, 0.05)); border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 2rem; color: var(--accent-purple); }
+        .cert-card h4 { font-size: 1.3rem; margin-bottom: 0.5rem; }
+        .cert-card .cert-full { font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 0.5rem; }
+        .cert-card .cert-org { font-size: 0.8rem; color: var(--accent-cyan); }
+        .cert-planned { position: absolute; top: 1rem; right: 1rem; padding: 0.3rem 0.6rem; background: rgba(245, 158, 11, 0.2); border: 1px solid rgba(245, 158, 11, 0.4); border-radius: 4px; font-size: 0.7rem; color: var(--accent-orange); }
+        .education-card { max-width: 600px; margin: 0 auto; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 20px; padding: 2.5rem; text-align: center; }
+        .education-card .icon { font-size: 3rem; margin-bottom: 1.5rem; color: var(--accent-cyan); }
+        .education-card h3 { font-size: 1.5rem; margin-bottom: 0.5rem; }
+        .education-card .school { color: var(--accent-purple); margin-bottom: 0.5rem; }
+        .education-card .date { color: var(--text-muted); font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; }
+        .contact { background: var(--bg-secondary); }
+        .contact-container { max-width: 900px; margin: 0 auto; text-align: center; }
+        .contact-container > p { color: var(--text-secondary); font-size: 1.2rem; margin-bottom: 3rem; }
+        .contact-methods { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-bottom: 3rem; }
+        .contact-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 2rem 1.5rem; transition: all 0.3s ease; text-decoration: none; color: inherit; }
+        .contact-card:hover { border-color: var(--accent-cyan); transform: translateY(-5px);  box-shadow: 0 16px 52px rgba(45, 212, 191, 0.10); }
+        .contact-card .icon { font-size: 2rem; margin-bottom: 1rem; color: var(--accent-cyan); }
+        .contact-card h4 { font-size: 1rem; margin-bottom: 0.25rem; }
+        .contact-card p { color: var(--text-muted); font-size: 0.85rem; word-break: break-all; }
+        .availability-banner { background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(0, 212, 255, 0.1)); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 16px; padding: 2rem; display: flex; align-items: center; justify-content: center; gap: 1rem; }
+        .availability-banner .dot { width: 12px; height: 12px; background: var(--accent-green); border-radius: 50%; animation: pulse 2s infinite; }
+        .availability-banner p { color: var(--text-primary); font-size: 1.1rem; }
+        footer { padding: 3rem 4rem; border-top: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; }
+        footer p { color: var(--text-muted); }
+        .social-links { display: flex; gap: 1rem; }
+        .social-link { width: 44px; height: 44px; border-radius: 12px; background: var(--bg-card); border: 1px solid var(--border-color); display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 1.2rem; transition: all 0.3s ease; color: var(--text-secondary); }
+        .social-link:hover { border-color: var(--accent-cyan); transform: translateY(-3px); color: var(--accent-cyan); }
+        @media (max-width: 1200px) { .hero-visual { display: none; } .projects-grid, .certifications-grid { grid-template-columns: repeat(2, 1fr); } .contact-methods { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 768px) { nav { padding: 1rem 2rem; } .nav-links { display: none; } .hero { padding: 6rem 2rem 4rem; } .hero h1 { font-size: 2.2rem; } .hero-subtitle { font-size: 1.2rem; } .hero-contact-info { flex-direction: column; gap: 0.75rem; } section { padding: 4rem 2rem; } .section-title { font-size: 2rem; } .projects-grid, .contact-methods, .certifications-grid { grid-template-columns: 1fr; } footer { flex-direction: column; gap: 1.5rem; text-align: center; } }
+    
+        /* --- Project gallery enhancements --- */
+        .project-image.app-icon {
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            background: var(--gradient-2);
+        }
+        .project-image.app-icon img{
+            width:72px;
+            height:72px;
+            border-radius:18px;
+            box-shadow: 0 18px 55px rgba(0,0,0,0.35);
+            transition: transform .35s ease, box-shadow .35s ease;
+        }
+        .project-card:hover .project-image.app-icon img{
+            transform: translateY(-4px) scale(1.03);
+            box-shadow: 0 22px 70px rgba(0,0,0,0.45);
+        }
+        .project-gallery{
+            display:flex;
+            gap:12px;
+            margin-top: 14px;
+            flex-wrap:wrap;
+        }
+        .project-gallery a{
+            display:block;
+            width:92px;
+            height:164px;
+            border-radius:14px;
+            overflow:hidden;
+            border:1px solid var(--border-color);
+            background: rgba(255,255,255,0.03);
+            transform: translateZ(0);
+        }
+        .project-gallery img{
+            width:100%;
+            height:100%;
+            object-fit:cover;
+            transition: transform .35s ease, filter .35s ease;
+        }
+        .project-gallery a:hover img{
+            transform: scale(1.08);
+            filter: saturate(1.12) contrast(1.05);
+        }
+        .store-links{
+            display:flex;
+            gap:10px;
+            flex-wrap:wrap;
+            margin-top: 12px;
+        }
+        .store-links a{
+            display:inline-flex;
+            gap:8px;
+            align-items:center;
+            padding:10px 12px;
+            border-radius:12px;
+            border:1px solid var(--border-color);
+            background: rgba(255,255,255,0.03);
+            color: var(--text-primary);
+            text-decoration:none;
+            font-weight:600;
+            transition: transform .25s ease, background .25s ease;
+        }
+        .store-links a:hover{
+            transform: translateY(-2px);
+            background: rgba(255,255,255,0.06);
+        }
+
+    
+        /* --- Fancy background blobs --- */
+        .bg-blob {
+            position: fixed;
+            width: 520px;
+            height: 520px;
+            border-radius: 50%;
+            filter: blur(140px);
+            opacity: 0.10;
+            z-index: -1;
+            pointer-events: none;
+            mix-blend-mode: screen;
+            animation: blobFloat 18s ease-in-out infinite;
+        }
+        .bg-blob.blob-1 { background: #22d3ee; top: -200px; left: -160px; }
+        .bg-blob.blob-2 { background: #c084fc; bottom: -220px; right: -180px; animation-delay: -6s; }
+        .bg-blob.blob-3 { background: #60a5fa; top: 30%; right: -220px; animation-delay: -12s; }
+
+        @keyframes blobFloat {
+            0%, 100% { transform: translate(0,0) scale(1); }
+            35% { transform: translate(60px, 40px) scale(1.08); }
+            70% { transform: translate(-40px, 60px) scale(0.98); }
+        }
+
+        /* Subtle animated noise */
+        .noise {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0.035;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
+            animation: noiseMove 6s steps(2) infinite;
+        }
+        @keyframes noiseMove { 0% { transform: translate(0,0);} 100% { transform: translate(10px, -10px);} }
+
+        /* Premium glass cards + animated gradient border */
+        .glass {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            box-shadow: 0 18px 70px rgba(0,0,0,0.35);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+        }
+        .gradient-border {
+            position: relative;
+        }
+        .gradient-border::before{
+            content:'';
+            position:absolute;
+            inset:-1px;
+            border-radius: inherit;
+            background: var(--gradient-1);
+            filter: blur(10px);
+            opacity: 0.10;
+            z-index: -1;
+            animation: glowPulse 6.5s ease-in-out infinite;
+        }
+        @keyframes glowPulse { 0%,100%{opacity:.10} 50%{opacity:.18} }
+
+        /* More lively hover interactions */
+        .skill-item, .project-card, .cert-card, .contact-card, .hero-card{
+            transform: translateZ(0);
+            will-change: transform, box-shadow;
+        }
+        .project-card:hover, .cert-card:hover, .contact-card:hover, .skill-item:hover{
+            box-shadow: 0 22px 70px rgba(0,0,0,0.38);
+        }
+
+        /* Gentle card tilt on hover (works with JS too) */
+        .tilt {
+            transform-style: preserve-3d;
+            transition: transform .18s ease, box-shadow .25s ease, border-color .25s ease;
+        }
+
+        /* Fancy section headers */
+        .section-title{
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(34,211,238,0.10);
+        }
+
+        /* Upgrade buttons */
+        .btn-secondary{
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(148,163,184,0.22);
+        }
+        .btn-secondary:hover{
+            border-color: rgba(34,211,238,0.55);
+            box-shadow: 0 16px 55px rgba(34,211,238,0.12);
+        }
+
+    
+        @media (prefers-reduced-motion: reduce) {
+            * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+            .tilt { transform: none !important; }
+        }
+
+    
+        /* Floating Experience Badge */
+        .experience-badge{
+            position: sticky;
+            top: 18px;
+            z-index: 50;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.35);
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="experience-badge floating" style="position:fixed; top:18px; right:18px; z-index:999;">
+        <i class="fas fa-award" style="color:var(--accent-orange)"></i>
+        <span>11+ Years of Professional Mobile Development Experience</span>
+    </div>
+
+    <div class="bg-grid"></div>
+    <div class="bg-blob blob-1"></div>
+    <div class="bg-blob blob-2"></div>
+    <div class="bg-blob blob-3"></div>
+    <div class="noise"></div>
+    <div class="bg-glow bg-glow-1"></div>
+    <div class="bg-glow bg-glow-2"></div>
+    <nav>
+        <div class="logo">M.E</div>
+        <ul class="nav-links">
+            <li><a href="#services">Services</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#certifications">Certifications</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge"><span class="dot"></span>Open to Full-time / Part-time / Contract</div>
+            <h1>Mohammed <span class="gradient-text">Elshwehy</span></h1>
+                <div class="experience-badge" style="margin:14px auto 6px; display:inline-flex; gap:10px; align-items:center; padding:8px 14px; border-radius:999px; border:1px solid var(--border-color); background: var(--gradient-2); color: var(--text-primary); font-weight:600;">
+                    <i class="fas fa-award" style="color:var(--accent-orange)"></i>
+                    <span>11+ Years of Professional Mobile Development Experience</span>
+                </div>
+
+            <p class="hero-subtitle">Senior Mobile Developer | Flutter • Android • iOS | PMP® • PMI-ACP®</p>
+            <p>I help startups, enterprises, and government teams build <strong>reliable, scalable mobile apps</strong> using Flutter, Android, and iOS — from <strong>pixel-perfect UI from Figma</strong> to <strong>production-ready delivery</strong> (clean architecture, performance, and maintainability).</p>
+            <div class="hero-contact-info">
+                <div class="contact-item"><i class="fas fa-map-marker-alt"></i><span>Kuwait</span></div>
+                <div class="contact-item"><i class="fas fa-envelope"></i><a href="mailto:eng.melshwehy@gmail.com">eng.melshwehy@gmail.com</a></div>
+                <div class="contact-item"><i class="fas fa-phone"></i><a href="tel:+96598921108">+965 98921108</a></div>
+                <div class="contact-item"><i class="fab fa-github"></i><a href="https://github.com/MysteryBuilders" target="_blank">github.com/MysteryBuilders</a></div>
+            </div>
+            <div class="hero-buttons">
+                <a href="#contact" class="btn btn-primary"><span>Get In Touch</span><i class="fas fa-arrow-right"></i></a>
+                <a href="#experience" class="btn btn-secondary"><i class="fas fa-briefcase"></i>View Experience</a>
+                <a href="#services" class="btn btn-secondary"><i class="fas fa-bolt"></i>Services</a>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="hero-card hero-card-1 glass gradient-border tilt"><div class="stat-card"><div class="stat-icon cyan"><i class="fas fa-mobile-alt"></i></div><div class="stat-info"><h4>11+</h4><p>Years Experience</p></div></div></div>
+            <div class="hero-card hero-card-2 glass gradient-border tilt"><div class="stat-card"><div class="stat-icon purple"><i class="fab fa-flutter"></i></div><div class="stat-info"><h4>6+</h4><p>Years Flutter</p></div></div></div>
+            <div class="hero-card hero-card-3 glass gradient-border tilt"><div class="stat-card"><div class="stat-icon green"><i class="fas fa-certificate"></i></div><div class="stat-info"><h4>PMP®</h4><p>Certified</p></div></div></div>
+        </div>
+    </section>
+
+    <section class="skills" id="services" style="background: var(--bg-primary);">
+        <div class="section-header">
+            <p class="section-label">What Clients Hire Me For</p>
+            <h2 class="section-title">Services</h2>
+        </div>
+        <div class="skills-container">
+            <div class="skills-category">
+                <h3><i class="fas fa-rocket"></i> Fast, High-Impact Delivery</h3>
+                <div class="skills-list">
+                    <div class="skill-item tilt tilt advanced"><i class="fab fa-figma" style="color:#F24E1E"></i><span>Flutter UI from Figma (Pixel-perfect)</span><span class="skill-badge">Popular</span></div>
+                    <div class="skill-item"><i class="fas fa-bug" style="color:#EF4444"></i><span>Bug fixing, crashes & performance</span></div>
+                    <div class="skill-item"><i class="fas fa-shield-check" style="color:#10B981"></i><span>Security & release readiness review</span></div>
+                    <div class="skill-item"><i class="fas fa-sitemap" style="color:#00D4FF"></i><span>Architecture & code review (Senior level)</span></div>
+                    <div class="skill-item"><i class="fas fa-gears" style="color:#F59E0B"></i><span>CI/CD guidance (Fastlane / GitHub Actions)</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="skills" id="skills">
+        <div class="section-header"><p class="section-label">Technical Expertise</p><h2 class="section-title">Core Skills</h2></div>
+        <div class="skills-container">
+            <div class="skills-category"><h3><i class="fas fa-code"></i> Mobile Engineering</h3>
+                <div class="skills-list">
+                    <div class="skill-item tilt advanced"><i class="fab fa-flutter" style="color:#02569B"></i><span>Flutter (iOS & Android)</span><span class="skill-badge">Advanced</span></div>
+                    <div class="skill-item"><i class="fab fa-android" style="color:#3DDC84"></i><span>Native Android (Kotlin, Java)</span></div>
+                    <div class="skill-item"><i class="fab fa-apple" style="color:#fff"></i><span>Native iOS (Swift, Objective-C)</span></div>
+                    <div class="skill-item"><i class="fab fa-figma" style="color:#F24E1E"></i><span>Pixel-perfect UI from Figma</span></div>
+                    <div class="skill-item"><i class="fas fa-magic" style="color:#EC4899"></i><span>Animations & Theming</span></div>
+                    <div class="skill-item"><i class="fas fa-th-large" style="color:#8B5CF6"></i><span>Responsive Layouts</span></div>
+                </div>
+            </div>
+            <div class="skills-category"><h3><i class="fas fa-cogs"></i> Architecture & Tools</h3>
+                <div class="skills-list">
+                    <div class="skill-item"><i class="fas fa-layer-group" style="color:#00D4FF"></i><span>Clean Architecture</span></div>
+                    <div class="skill-item"><i class="fas fa-project-diagram" style="color:#F59E0B"></i><span>MVVM</span></div>
+                    <div class="skill-item"><i class="fas fa-cubes" style="color:#8B5CF6"></i><span>BLoC / Cubit</span></div>
+                    <div class="skill-item"><i class="fas fa-water" style="color:#06B6D4"></i><span>Riverpod</span></div>
+                    <div class="skill-item"><i class="fas fa-plug" style="color:#10B981"></i><span>Dio / Retrofit</span></div>
+                    <div class="skill-item"><i class="fas fa-syringe" style="color:#EC4899"></i><span>GetIt (DI)</span></div>
+                    <div class="skill-item"><i class="fas fa-fire" style="color:#F59E0B"></i><span>Firebase (FCM, Crashlytics)</span></div>
+</div>
+            </div>
+            <div class="skills-category"><h3><i class="fas fa-tasks"></i> Agile & Delivery</h3>
+                <div class="skills-list">
+                    <div class="skill-item"><i class="fas fa-sync-alt" style="color:#3B82F6"></i><span>Agile / Scrum / Hybrid</span></div>
+                    <div class="skill-item"><i class="fas fa-clipboard-list" style="color:#10B981"></i><span>Sprint Planning & Estimation</span></div>
+                    <div class="skill-item"><i class="fas fa-exclamation-triangle" style="color:#F59E0B"></i><span>Risk & Scope Management</span></div>
+                    <div class="skill-item"><i class="fas fa-users" style="color:#8B5CF6"></i><span>Cross-team Collaboration</span></div>
+                    <div class="skill-item"><i class="fas fa-sitemap" style="color:#00D4FF"></i><span>UML & BPMN</span></div>
+                </div>
+            
+
+            
+            <div class="skills-category">
+                <h3><i class="fas fa-mobile-screen-button"></i> Mobile Services & SDKs</h3>
+                <div class="skills-list">
+                    <div class="skill-item"><i class="fas fa-fire" style="color:var(--accent-orange)"></i><span>Firebase (Auth, FCM, Firestore, Realtime DB, Crashlytics, Remote Config)</span></div>
+                    <div class="skill-item"><i class="fas fa-chart-line" style="color:var(--accent-cyan)"></i><span>Analytics (Firebase Analytics, GA4)</span></div>
+                    <div class="skill-item"><i class="fas fa-map-location-dot" style="color:var(--accent-green)"></i><span>Google Maps SDK (Maps, Geocoding, Directions)</span></div>
+                    <div class="skill-item"><i class="fas fa-location-crosshairs" style="color:var(--accent-purple)"></i><span>Location Services (GPS, Background tracking, Geofencing)</span></div>
+                    <div class="skill-item"><i class="fas fa-bell" style="color:var(--accent-pink)"></i><span>Push Notifications (FCM, APNs)</span></div>
+                    <div class="skill-item"><i class="fas fa-link" style="color:var(--accent-cyan)"></i><span>Deep Links (Android App Links / iOS Universal Links)</span></div>
+                    <div class="skill-item"><i class="fas fa-credit-card" style="color:var(--accent-orange)"></i><span>Payments (In-App Purchases, Payment gateways integration)</span></div>
+                    <div class="skill-item"><i class="fas fa-file-arrow-down" style="color:var(--accent-green)"></i><span>Offline-first Storage (SQLite/Drift, Hive, SharedPreferences)</span></div>
+                    <div class="skill-item"><i class="fas fa-camera" style="color:var(--accent-purple)"></i><span>Device APIs (Camera, Files, Biometrics, Sensors)</span></div>
+                </div>
+            </div>
+
+
+            <div class="skills-category">
+                <h3><i class="fas fa-screwdriver-wrench"></i> Quality, Release & DevOps</h3>
+                <div class="skills-list">
+                    <div class="skill-item"><i class="fas fa-vial" style="color:var(--accent-purple)"></i><span>Testing (Unit, Widget, Integration)</span></div>
+                    <div class="skill-item"><i class="fas fa-bug-slash" style="color:var(--accent-red)"></i><span>Crash Monitoring (Crashlytics, Sentry)</span></div>
+                    <div class="skill-item"><i class="fas fa-rocket" style="color:var(--accent-cyan)"></i><span>CI/CD (Fastlane, GitHub Actions)</span></div>
+                    <div class="skill-item"><i class="fas fa-store" style="color:var(--accent-green)"></i><span>Store Releases (Play Console, App Store Connect)</span></div>
+                    <div class="skill-item"><i class="fas fa-shield" style="color:var(--accent-orange)"></i><span>App Hardening (Obfuscation, Secure storage, Threat modeling)</span></div>
+                </div>
+            </div>
+
+<div class="skills-category">
+                <h3><i class="fas fa-shield-halved"></i> Mobile Security & Tools</h3>
+                <div class="skills-list">
+                    <div class="skill-item tilt advanced"><i class="fas fa-lock" style="color:var(--accent-green)"></i><span>Mobile App Security</span><span class="skill-badge">Advanced</span></div>
+                    <div class="skill-item"><i class="fas fa-flag" style="color:var(--accent-orange)"></i><span>OWASP MASVS / MSTG</span></div>
+                    <div class="skill-item"><i class="fas fa-shield" style="color:var(--accent-purple)"></i><span>SSL Pinning / Certificate Pinning</span></div>
+
+                    <div class="skill-item"><i class="fas fa-toolbox" style="color:var(--accent-cyan)"></i><span>MobSF</span></div>
+                    <div class="skill-item"><i class="fas fa-hook" style="color:var(--accent-pink)"></i><span>Frida 🪝</span></div>
+                    <div class="skill-item"><i class="fas fa-box" style="color:var(--accent-purple)"></i><span>APKTool 📦</span></div>
+                    <div class="skill-item"><i class="fas fa-unlock" style="color:var(--accent-orange)"></i><span>Jadx 🔓</span></div>
+                    <div class="skill-item"><i class="fas fa-bug" style="color:var(--accent-red)"></i><span>Burp Suite 🌐</span></div>
+                </div>
+            </div>
+
+</div>
+        </div>
+    </section>
+    <section class="experience" id="experience">
+        <div class="section-header"><p class="section-label">Career Journey</p><h2 class="section-title">Professional Experience</h2></div>
+        <div class="experience-timeline">
+            <div class="experience-item">
+                <p class="experience-date"><i class="far fa-calendar-alt"></i> Jul 2023 – Present</p>
+                <h3><i class="fas fa-user-tie"></i> Senior Mobile Analyst</h3>
+                <p class="experience-company"><i class="fas fa-building"></i> ZAK Solutions — Kuwait</p>
+                <ul class="experience-highlights">
+                    <li>Lead analysis and development of complex enterprise and mobile applications</li>
+                    <li>Translate business requirements into technical solutions using UML and BPMN</li>
+                    <li>Design as-is and to-be business processes and system workflows</li>
+                    <li>Collaborate with stakeholders to gather, refine, and validate system requirements</li>
+                    <li>Act as a bridge between technical teams and non-technical stakeholders</li>
+                </ul>
+            </div>
+            <div class="experience-item">
+                <p class="experience-date"><i class="far fa-calendar-alt"></i> Aug 2020 – Jun 2023</p>
+                <h3><i class="fas fa-mobile-alt"></i> Android Mobile Developer / Business Analyst Consultant</h3>
+                <p class="experience-company"><i class="fas fa-building"></i> EEMC — Kuwait</p>
+                <div class="experience-projects"><h4><i class="fas fa-folder-open"></i> Key Projects:</h4>
+                    <div class="project-tags">
+                        <span class="project-tag">Awqaf Gate</span>
+                        <span class="project-tag">Islamic Content</span>
+                        <span class="project-tag">Quran Exam</span>
+                        <span class="project-tag">Ramadan In Your Home</span>
+                        <span class="project-tag">Khotab</span>
+                    </div>
+                </div>
+                <ul class="experience-highlights">
+                    <li>Developed and maintained Android and Flutter applications in production</li>
+                    <li>Integrated REST APIs and third-party services</li>
+                    <li>Worked closely with government stakeholders on requirement validation</li>
+                </ul>
+            </div>
+            <div class="experience-item">
+                <p class="experience-date"><i class="far fa-calendar-alt"></i> Jan 2019 – Jul 2020</p>
+                <h3><i class="fas fa-code"></i> Senior Mobile Developer</h3>
+                <p class="experience-company"><i class="fas fa-building"></i> Advanced Technology Company — Kuwait</p>
+                <div class="experience-projects"><h4><i class="fas fa-folder-open"></i> Major Platforms:</h4>
+                    <div class="project-tags">
+                        <span class="project-tag">Q8Seha</span>
+                        <span class="project-tag">Dabirny</span>
+                        <span class="project-tag">Yarmouk Health City</span>
+                    </div>
+                </div>
+                <ul class="experience-highlights">
+                    <li>Built large-scale healthcare mobile applications</li>
+                    <li>Implemented secure workflows and role-based features</li>
+                    <li>Participated in architecture decisions and performance optimization</li>
+                </ul>
+            </div>
+            <div class="experience-item">
+                <p class="experience-date"><i class="far fa-calendar-alt"></i> Jul 2014 – Dec 2018</p>
+                <h3><i class="fab fa-android"></i> Senior Android Developer</h3>
+                <p class="experience-company"><i class="fas fa-building"></i> Ebla Consultation — Kuwait</p>
+                <div class="experience-projects"><h4><i class="fas fa-folder-open"></i> Selected Projects:</h4>
+                    <div class="project-tags">
+                        <span class="project-tag">Mosques of Kuwait</span>
+                        <span class="project-tag">Islamic Encyclopedia</span>
+                        <span class="project-tag">Biometric Systems</span>
+                        <span class="project-tag">Bety Card</span>
+                    </div>
+                </div>
+                <ul class="experience-highlights">
+                    <li>Designed and developed enterprise and government Android applications</li>
+                    <li>Delivered end-to-end mobile solutions from requirements to deployment</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    <section class="projects" id="projects">
+        <div class="section-header"><p class="section-label">Portfolio</p><h2 class="section-title">Featured Apps</h2></div>
+        <div class="projects-grid">
+<!-- Added Apps (Store-based) -->
+            <div class="project-card glass gradient-border tilt">
+                <div class="project-image app-icon">
+                    <img src="https://play-lh.googleusercontent.com/5WWNwLfH5hlLZZl8-rb_V9g1hfVsJPpG8KZLSVNmFoJ7AjmK2yPo0NyCtUJALgXAjmUc=w240-h480" alt="Crane app icon">
+                </div>
+                <div class="project-content">
+                    <h3>.Crane</h3>
+                    <p>Vehicle transportation & car-carrier services app in Kuwait. Built for smooth booking and operations with a clean, production-ready mobile experience.</p>
+                    <div class="project-tags">
+                        <span class="tag">Flutter</span>
+                        <span class="tag">Mobile</span>
+                        <span class="tag">Production</span>
+                    </div>
+                    <div class="store-links">
+                        <a href="https://play.google.com/store/apps/details?id=com.createq8.krane" target="_blank" rel="noopener"><i class="fab fa-google-play"></i>Google Play</a>
+                        <a href="https://apps.apple.com/kw/app/crane/id6711355509" target="_blank" rel="noopener"><i class="fab fa-apple"></i>App Store</a>
+                    </div>
+                    <div class="project-gallery">
+                        <a href="https://play-lh.googleusercontent.com/mz2YM0FadW5YeNgZIyuT0VCysGCh-GgBz_jcm5MpA0A8XCEWs0LtElaueLLmyZt-9Yk=w526-h296" target="_blank" rel="noopener"><img src="https://play-lh.googleusercontent.com/mz2YM0FadW5YeNgZIyuT0VCysGCh-GgBz_jcm5MpA0A8XCEWs0LtElaueLLmyZt-9Yk=w526-h296" alt="Crane screenshot 1"></a>
+                        <a href="https://play-lh.googleusercontent.com/pCe3GqaUyceLCW9pcnMYvAoX9rRB9GAcybk2wU4U009jzm5xei0dKYbqE4KCMTXw8hg=w526-h296" target="_blank" rel="noopener"><img src="https://play-lh.googleusercontent.com/pCe3GqaUyceLCW9pcnMYvAoX9rRB9GAcybk2wU4U009jzm5xei0dKYbqE4KCMTXw8hg=w526-h296" alt="Crane screenshot 2"></a>
+                        <a href="https://play-lh.googleusercontent.com/iU4IAKrP-PaD0EqfCAMjec1O9Qln6UoD1jjkkIQn4O6HwhRHIMyaZbm_eUgwPfgKX7y5=w526-h296" target="_blank" rel="noopener"><img src="https://play-lh.googleusercontent.com/iU4IAKrP-PaD0EqfCAMjec1O9Qln6UoD1jjkkIQn4O6HwhRHIMyaZbm_eUgwPfgKX7y5=w526-h296" alt="Crane screenshot 3"></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card glass gradient-border tilt">
+                <div class="project-image app-icon">
+                    <img src="https://play-lh.googleusercontent.com/X65awikLUFhLZqjRZxz9dgp-eU-Gumv39Zj_zu78X5lvj1NUr3u_1lZXXNGxDDqa81c=w240-h480" alt="My ACAD app icon">
+                </div>
+                <div class="project-content">
+                    <h3>MY ACAD</h3>
+                    <p>Sports academies & tournaments platform—discover, subscribe, and manage sports activities across categories with a user-friendly experience.</p>
+                    <div class="project-tags">
+                        <span class="tag">Flutter</span>
+                        <span class="tag">Firebase</span>
+                        <span class="tag">Payments</span>
+                    </div>
+                    <div class="store-links">
+                        <a href="https://play.google.com/store/apps/details?id=com.createq8.my_academy&hl=en" target="_blank" rel="noopener"><i class="fab fa-google-play"></i>Google Play</a>
+                        <a href="https://apps.apple.com/us/app/my-acad/id6468953190" target="_blank" rel="noopener"><i class="fab fa-apple"></i>App Store</a>
+                    </div>
+                    <div class="project-gallery">
+                        <a href="https://play-lh.googleusercontent.com/uZ-lTS5FAdBFbVYH5j7pThwWnfDaesLAFbNtIjcsk0ee7qGwbMApY4FC_PopZ2MEI7I=w526-h296" target="_blank" rel="noopener"><img src="https://play-lh.googleusercontent.com/uZ-lTS5FAdBFbVYH5j7pThwWnfDaesLAFbNtIjcsk0ee7qGwbMApY4FC_PopZ2MEI7I=w526-h296" alt="MY ACAD screenshot 1"></a>
+                        <a href="https://play-lh.googleusercontent.com/LEuss7AnN68fyeydrajlWM_f4gwsixSIwrnABpLuemWxM2qmyFl9cVN79607-_lTgdE=w526-h296" target="_blank" rel="noopener"><img src="https://play-lh.googleusercontent.com/LEuss7AnN68fyeydrajlWM_f4gwsixSIwrnABpLuemWxM2qmyFl9cVN79607-_lTgdE=w526-h296" alt="MY ACAD screenshot 2"></a>
+                        <a href="https://play-lh.googleusercontent.com/KFPM2_mGOFxdBZY9v18vmfm0--5kDeTEyE03uw02vyrfMxfJ4uEp4FsESNu0z0qcT3Q=w526-h296" target="_blank" rel="noopener"><img src="https://play-lh.googleusercontent.com/KFPM2_mGOFxdBZY9v18vmfm0--5kDeTEyE03uw02vyrfMxfJ4uEp4FsESNu0z0qcT3Q=w526-h296" alt="MY ACAD screenshot 3"></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card glass gradient-border tilt">
+                <div class="project-image app-icon">
+                    <img src="https://play-lh.googleusercontent.com/n5nFC4WWCwP60fZKXfsxJDV5KSUL64o12-Chjvr-6l5RB4YV_DOvfptF7bExdsU42A=w240-h480" alt="Point app icon">
+                </div>
+                <div class="project-content">
+                    <h3>Point</h3>
+                    <p>Competitive entertainment platform for football match predictions—weekly matches, leagues, ranking, and social play.</p>
+                    <div class="project-tags">
+                        <span class="tag">Flutter</span>
+                        <span class="tag">Realtime</span>
+                        <span class="tag">Gamification</span>
+                    </div>
+                    <div class="store-links">
+                        <a href="https://play.google.com/store/apps/details?id=com.createq8.point" target="_blank" rel="noopener"><i class="fab fa-google-play"></i>Google Play</a>
+                        <a href="https://apps.apple.com/kw/app/point/id6444777774" target="_blank" rel="noopener"><i class="fab fa-apple"></i>App Store</a>
+                    </div>
+                    <div class="project-gallery">
+                        <a href="https://play-lh.googleusercontent.com/zxM8f6hfUqrvcoPrAD4vsE5PHKpVvJK_jZ9zSBrcvliKwD62Uz2BMLrmgNFdL4GOg10=w526-h296" target="_blank" rel="noopener"><img src="https://play-lh.googleusercontent.com/zxM8f6hfUqrvcoPrAD4vsE5PHKpVvJK_jZ9zSBrcvliKwD62Uz2BMLrmgNFdL4GOg10=w526-h296" alt="Point screenshot 1"></a>
+                        <a href="https://play-lh.googleusercontent.com/1oh3E4mYGtBRuhx_ubm2Z9uy30XDLdmyuiuX0MYkGRUqoc6qc_ISrG-PvkOfI6_0IZ4=w526-h296" target="_blank" rel="noopener"><img src="https://play-lh.googleusercontent.com/1oh3E4mYGtBRuhx_ubm2Z9uy30XDLdmyuiuX0MYkGRUqoc6qc_ISrG-PvkOfI6_0IZ4=w526-h296" alt="Point screenshot 2"></a>
+                        <a href="https://play-lh.googleusercontent.com/uhkIAkOBaDZCzUz8DMJriYrQXlLEPtmP2E_XIfXYHJhaGdkmTkqAGvnQEI8x_tUsmQ=w526-h296" target="_blank" rel="noopener"><img src="https://play-lh.googleusercontent.com/uhkIAkOBaDZCzUz8DMJriYrQXlLEPtmP2E_XIfXYHJhaGdkmTkqAGvnQEI8x_tUsmQ=w526-h296" alt="Point screenshot 3"></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card glass gradient-border tilt">
+                <div class="project-image app-icon">
+                    <img src="https://play-lh.googleusercontent.com/JFmpIWel6XNkf-0lFaHyR-FD3SiKMv5bhl9txUa_jeMNZW_3C92q5l93Vm7nBsTmrNGF8Jc2XV27486poV6Kcg=w240-h480" alt="Dabbirny app icon">
+                </div>
+                <div class="project-content">
+                    <h3>Dabbirny (دبرني)</h3>
+                    <p>Family activities discovery platform—sports, education, and special needs activities with provider-client connection through a smart, organized experience.</p>
+                    <div class="project-tags">
+                        <span class="tag">Flutter</span>
+                        <span class="tag">Marketplace</span>
+                        <span class="tag">Search</span>
+                    </div>
+                    <div class="store-links">
+                        <a href="https://play.google.com/store/apps/details?id=com.createq8.dabbirny_app" target="_blank" rel="noopener"><i class="fab fa-google-play"></i>Google Play</a>
+                        <a href="https://apps.apple.com/kw/app/dabbirny-%D8%AF%D8%A8%D8%B1%D9%86%D9%8A/id1445434937" target="_blank" rel="noopener"><i class="fab fa-apple"></i>App Store</a>
+                    </div>
+                    <div class="project-gallery">
+                        <a href="https://play-lh.googleusercontent.com/gyDVR5VGlLgv4tHeoLBYvFGFxuJ5rTiidMHTog1WVLMD_PNPvl_KtJu-ZVAOA3OGEXViTWQdzY5grifKdc4PgXo=w526-h296" target="_blank" rel="noopener"><img src="https://play-lh.googleusercontent.com/gyDVR5VGlLgv4tHeoLBYvFGFxuJ5rTiidMHTog1WVLMD_PNPvl_KtJu-ZVAOA3OGEXViTWQdzY5grifKdc4PgXo=w526-h296" alt="Dabbirny screenshot 1"></a>
+                        <a href="https://play-lh.googleusercontent.com/TXGZWzP4zucCSg4Qu0e5zM2HODgwmZgGl95kDHe_CBxeiwTwM-D0FPpc6yAMaT9B3DfPcp8mFXPF_B9qE74rPw=w526-h296" target="_blank" rel="noopener"><img src="https://play-lh.googleusercontent.com/TXGZWzP4zucCSg4Qu0e5zM2HODgwmZgGl95kDHe_CBxeiwTwM-D0FPpc6yAMaT9B3DfPcp8mFXPF_B9qE74rPw=w526-h296" alt="Dabbirny screenshot 2"></a>
+                        <a href="https://play-lh.googleusercontent.com/uCqY1nZJz9m1Qwokk9GPp1p0HKK8QykvGYbH7153rEPGfUkaacsNtHGVHO7H6DYTxoRBhYF5PSVccQyy9162=w526-h296" target="_blank" rel="noopener"><img src="https://play-lh.googleusercontent.com/uCqY1nZJz9m1Qwokk9GPp1p0HKK8QykvGYbH7153rEPGfUkaacsNtHGVHO7H6DYTxoRBhYF5PSVccQyy9162=w526-h296" alt="Dabbirny screenshot 3"></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card glass gradient-border tilt">
+                <div class="project-image app-icon">
+                    <img src="https://play-lh.googleusercontent.com/T9Nljdrv4cxd45rE1To-Qp8yFWneeLpjrSXFJQEPYi8sQ3EMMz7MjGGtmQ-j59_YnTU=w240-h480" alt="Coeo app icon">
+                </div>
+                <div class="project-content">
+                    <h3>Coeo</h3>
+                    <p>Gaming & PC shopping app—browse products, manage cart and checkout, and access repair services with fast delivery and multiple payment methods.</p>
+                    <div class="project-tags">
+                        <span class="tag">Flutter</span>
+                        <span class="tag">E-commerce</span>
+                        <span class="tag">Payments</span>
+                    </div>
+                    <div class="store-links">
+                        <a href="https://play.google.com/store/apps/details?hl=en&id=com.createkw.coeo" target="_blank" rel="noopener"><i class="fab fa-google-play"></i>Google Play</a>
+                        <a href="https://apps.apple.com/kw/app/coeo-app/id6739816818" target="_blank" rel="noopener"><i class="fab fa-apple"></i>App Store</a>
+                    </div>
+                    <div class="project-gallery">
+                        <a href="https://play-lh.googleusercontent.com/rEP0xDJDdSgwgxLlDh7_YrsHrS6ws217w0iu_5WfeoZ3cclKn7w0If5iUfL8h5pmn2SR=w526-h296" target="_blank" rel="noopener"><img src="https://play-lh.googleusercontent.com/rEP0xDJDdSgwgxLlDh7_YrsHrS6ws217w0iu_5WfeoZ3cclKn7w0If5iUfL8h5pmn2SR=w526-h296" alt="Coeo screenshot 1"></a>
+                        <a href="https://play-lh.googleusercontent.com/JeWAB9GwJKm3Bl4E4gSJU1tFAQc-q1nhCtAZ2ImsvLssG26hE9MWyZHkTMzVuQaYE7U=w526-h296" target="_blank" rel="noopener"><img src="https://play-lh.googleusercontent.com/JeWAB9GwJKm3Bl4E4gSJU1tFAQc-q1nhCtAZ2ImsvLssG26hE9MWyZHkTMzVuQaYE7U=w526-h296" alt="Coeo screenshot 2"></a>
+                        <a href="https://play-lh.googleusercontent.com/gL_91M3H7fSx_GoZ6pQm8uJ2RG7CXJNUl86O_zoqw0exOxeIrS2uwER3IXuNEeEG_2c=w526-h296" target="_blank" rel="noopener"><img src="https://play-lh.googleusercontent.com/gL_91M3H7fSx_GoZ6pQm8uJ2RG7CXJNUl86O_zoqw0exOxeIrS2uwER3IXuNEeEG_2c=w526-h296" alt="Coeo screenshot 3"></a>
+                    </div>
+                </div>
+            </div>
+
+</div>
+        </div>
+    </section>
+    <section class="certifications" id="certifications">
+        <div class="section-header"><p class="section-label">Credentials</p><h2 class="section-title">Certifications</h2></div>
+        <div class="certifications-grid">
+            <div class="cert-card glass gradient-border tilt"><div class="cert-icon"><i class="fas fa-award"></i></div><h4>PMP®</h4><p class="cert-full">Project Management Professional</p><p class="cert-org">PMI</p></div>
+            <div class="cert-card glass gradient-border tilt"><div class="cert-icon"><i class="fas fa-sync-alt"></i></div><h4>PMI-ACP®</h4><p class="cert-full">Agile Certified Practitioner</p><p class="cert-org">PMI</p></div>
+            <div class="cert-card glass gradient-border tilt"><span class="cert-planned">Planned</span><div class="cert-icon"><i class="fas fa-shield-alt"></i></div><h4>PMI-RMP®</h4><p class="cert-full">Risk Management Professional</p><p class="cert-org">PMI</p></div>
+        </div>
+    </section>
+    <section class="education" id="education">
+        <div class="section-header"><p class="section-label">Academic Background</p><h2 class="section-title">Education</h2></div>
+        <div class="education-card">
+            <div class="icon"><i class="fas fa-user-graduate"></i></div>
+            <h3>Bachelor of Computer Engineering</h3>
+            <p class="school">Faculty of Engineering – Tanta University, Egypt</p>
+            <p class="date">Sep 2007 – Jul 2012</p>
+        </div>
+    </section>
+    <section class="contact" id="contact">
+        <div class="contact-container">
+            <p class="section-label">Get In Touch</p>
+            <h2 class="section-title">Let's Work Together</h2>
+            <p>Looking for a senior mobile developer with proven expertise in Flutter, Android, iOS, and project management? Let's connect!</p>
+            <p style="margin-top:0.75rem; color: var(--accent-green); font-weight:600;">Typically responds within 24 hours.</p>
+            <div class="contact-methods">
+                <a href="mailto:eng.melshwehy@gmail.com" class="contact-card glass gradient-border tilt"><div class="icon"><i class="fas fa-envelope"></i></div><h4>Email</h4><p>eng.melshwehy@gmail.com</p></a>
+                <a href="tel:+96598921108" class="contact-card glass gradient-border tilt"><div class="icon"><i class="fas fa-phone-alt"></i></div><h4>Phone</h4><p>+965 98921108</p></a>
+                <a href="https://github.com/MysteryBuilders" target="_blank" class="contact-card glass gradient-border tilt"><div class="icon"><i class="fab fa-github"></i></div><h4>GitHub</h4><p>MysteryBuilders</p></a>
+                <div class="contact-card glass gradient-border tilt"><div class="icon"><i class="fas fa-map-marker-alt"></i></div><h4>Location</h4><p>Kuwait</p></div>
+            </div>
+            <div class="availability-banner"><span class="dot"></span><p><strong>Available for Remote or On-site opportunities</strong> — Full-time / Part-time / Contract</p></div>
+        </div>
+    </section>
+    <footer>
+        <p>© 2026 Mohammed Elshwehy. Built with passion for mobile excellence.</p>
+        <div class="social-links">
+            <a href="https://github.com/MysteryBuilders" target="_blank" class="social-link" aria-label="GitHub"><i class="fab fa-github"></i></a>
+            <a href="mailto:eng.melshwehy@gmail.com" class="social-link" aria-label="Email"><i class="fas fa-envelope"></i></a>
+        </div>
+    </footer>
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) { entry.target.style.opacity = '1'; entry.target.style.transform = 'translateY(0)'; } });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+        document.querySelectorAll('.skill-item, .project-card, .cert-card, .experience-item, .contact-card').forEach(el => {
+            el.style.opacity = '0'; el.style.transform = 'translateY(30px)'; el.style.transition = 'all 0.6s ease'; observer.observe(el);
+        });
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) { e.preventDefault(); const target = document.querySelector(this.getAttribute('href')); if (target) { target.scrollIntoView({ behavior: 'smooth', block: 'start' }); } });
+        });
+        window.addEventListener('scroll', () => { const nav = document.querySelector('nav'); nav.style.background = window.scrollY > 100 ? 'rgba(10, 10, 15, 0.95)' : 'rgba(10, 10, 15, 0.8)'; });
+    </script>
+
+    <script>
+      // Fancy tilt effect (lightweight)
+      (() => {
+        const els = Array.from(document.querySelectorAll('.tilt'));
+        const clamp = (v, min, max) => Math.min(max, Math.max(min, v));
+        els.forEach(el => {
+          el.addEventListener('mousemove', (e) => {
+            const r = el.getBoundingClientRect();
+            const x = (e.clientX - r.left) / r.width - 0.5;
+            const y = (e.clientY - r.top) / r.height - 0.5;
+            const rx = clamp(-y * 6, -5, 5);
+            const ry = clamp(x * 7, -6, 6);
+            el.style.transform = `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-2px)`;
+          }, { passive: true });
+          el.addEventListener('mouseleave', () => {
+            el.style.transform = '';
+          });
+        });
+      })();
+    </script>
+
+</body>
+</html>
